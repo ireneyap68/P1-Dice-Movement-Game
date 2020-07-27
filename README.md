@@ -33,6 +33,19 @@
 * Create movement board.
 * Set position - dice and others.
 
+The z-index property in CSS controls the vertical stacking order of elements that overlap. I'm planning to let 2 players overlaps when turn into same place.
+```css
+    character img{ 
+        position: relative;
+        margin-top:10%;
+        width:80px;
+        z-index: 1;
+    }
+```
+
+
+
+
 ## JS
 * Create variable to players, dice, movement and others.
 * Function to dice, movements board, forward/backward, meet together then go back to first step and others.

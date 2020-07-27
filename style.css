@@ -24,3 +24,52 @@
     text-align: center;
     border-radius: 13px;
 }
+
+.control{
+    width:200px;
+    height:200px;
+    border-radius: 50%;
+    background: #fff;
+	position: absolute;
+	top:50%;
+	right: 20%;
+	transform: translateY(-50%);
+
+}
+#p1 h1{
+    background: blue;
+    color: white;
+    text-align: center;
+}
+#p2 h1{
+    background: #E53A40;
+    color: white;
+    text-align: center;
+
+}
+
+.character img{ 
+    position: relative;
+    margin-top:10%;
+    width:70px;
+    z-index: 1;
+}
+
+.dice1, .dice2{
+    width: 100px;
+    height: 100px;
+    background-image: url(img/1.jpg);
+    cursor: pointer;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+.box img{
+    width:80%;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
