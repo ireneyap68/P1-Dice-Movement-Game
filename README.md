@@ -33,7 +33,7 @@
 * Create movement board.
 * Set position - dice and others.
 
-The z-index property in CSS controls the vertical stacking order of elements that overlap. I'm planning to let 2 players overlaps when turn into same place.
+The z-index property in CSS controls the vertical stacking order of elements that overlap. I'm planning to let 2 players overlaps when turn into same slot.
 ```css
     character img{ 
         position: relative;
@@ -43,7 +43,19 @@ The z-index property in CSS controls the vertical stacking order of elements tha
     }
 ```
 
-
+The transform property applies a 2D or 3D transformation to an element. This property allows you to rotate, scale, move, skew, etc., elements. I want my dice looks anime so I decided to use transform.
+```css
+    .dice1, .dice2{
+        width: 100px;
+        height: 100px;
+        background-image: url(img/1.jpg);
+        cursor: pointer;
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+    }
+```
 
 
 ## JS
