@@ -23,6 +23,17 @@
     background: #454545;
     text-align: center;
     border-radius: 13px;
+    
+}
+
+.box h1{
+    position: absolute;
+    top:50%;
+    left:50%;
+    font-size: 3em;
+    transform: translate(-50%,-50%);
+    font-weight: 400;
+
 }
 
 .control{
@@ -36,16 +47,25 @@
 	transform: translateY(-50%);
 
 }
-#player1 h1{
-    background: blue;
-    color: white;
+#c1 h1{
+    background: #454545;
     text-align: center;
+    
 }
-#player2 h1{
+#c2 h1{
     background: #E53A40;
-    color: white;
     text-align: center;
+    
+}
 
+.control h1{
+    color: #fff;
+    padding: 8px;
+    position: absolute;
+    top:calc(-2em - 13px);
+    left:50%;
+    transform: translateX(-50%);
+    border-radius: 13px;
 }
 
 .character img{ 
@@ -64,6 +84,7 @@
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
+    pointer-events: unset;
 }
 
 .box img{
@@ -72,4 +93,21 @@
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
+}
+
+@keyframes bigger{
+    0%{
+        width:80%;
+    }
+    100%{
+        width:100%;
+    }
+}
+@keyframes smaller{
+    0%{
+        width:80%;
+    }
+    100%{
+        width:60%;
+    }
 }

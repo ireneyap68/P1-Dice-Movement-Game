@@ -17,8 +17,8 @@
 * create players id and input images represent p1 and p2
 ```html
     <div class="character">
-                <img id= "player 1" src="" alt="">
-                <img id="player 2" src="" alt="">
+                <img id= "player-1" src="" alt="">
+                <img id="player-2" src="" alt="">
 ```
 
 * create "map" which means game's board, 50 blocks include grid-movement and grid-blanks.
