@@ -78,13 +78,13 @@
 .dice1, .dice2{
     width: 100px;
     height: 100px;
-    background-image: url(./1.png);
+    background-image: url(./img/1.png);
     cursor: pointer;
     position: absolute;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
-    pointer-events: unset;
+    
 }
 
 .box img{

@@ -130,9 +130,9 @@ const diceRollerP1 = (function() {
     dice1.addEventListener("click",() => {
         let num = Math.ceil(Math.random()*6);
         let bgi = Math.ceil(Math.random()*2);
-        document.getElementsByClassName("dice1").src = "img/s" + bgi + ".png";  //fake dice anime image turning
+        document.getElementsByClassName("dice1").src = "./img/s" + bgi + ".png";  //fake dice anime image turning
         setTimeout(function(){
-            document.getElementsByClassName("dice1").src = "img/" + num + ".png";  // real movement dice1 setting
+            document.getElementsByClassName("dice1").src = "./img/" + num + ".png";  // real movement dice1 setting
         }, 300);
             //pointer-event 
         dice1.style.display = ("pointer-events","none");
@@ -227,9 +227,9 @@ const diceRollerP2 = (function() {
     dice1.addEventListener("click",() => {
         let num = Math.ceil(Math.random()*6);
         let bgi = Math.ceil(Math.random()*2);
-        document.getElementsByClassName("dice2").src = "img/s" + bgi + ".png";  //fake dice anime image turning
+        document.getElementsByClassName("dice2").src = "./img/s" + bgi + ".png";  //fake dice anime image turning
         setTimeout(function(){
-            document.getElementsByClassName("dice2").src = "img/" + num + ".png";  // real movement dice1 setting
+            document.getElementsByClassName("dice2").src = "./img/" + num + ".png";  // real movement dice1 setting
         }, 300);
             //pointer-event 
         dice2.style.display = ("pointer-events", "none");
