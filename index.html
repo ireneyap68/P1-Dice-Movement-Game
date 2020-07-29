@@ -10,8 +10,8 @@
     <header>Dice Board Movement Game</header>
     <div class="container">
         <div class="character">
-            <img id= "player-1" src="img/ironman1.png" alt="">
-            <img id="player-2" src="img/captain2.png" alt="">
+            <img id= "player1" src="img/ironman1.png" alt="">
+            <img id="player2" src="img/captain2.png" alt="">
             
             
         </div>
@@ -20,13 +20,13 @@
             <div class="box" id="b1"><h1>1</h1></div>
             <div class="box" id="b2"><h1>2</h1></div>
             <div class="box" id="b3"><h1>3</h1></div>
-            <div class="box" id="b4">move<br>forward<br>4<br>slots</div>
+            <div class="box" id="b4"><h3>move<br>forward<br>4<br>slots</h3></div>
             <div class="box" id="b5"><h1>5</h1></div>
             <div class="box" id="b6"><h1>6</h1></div>
-            <div class="box" id="b7"><h1>7</h1></div>
+            <div class="box" id="b7"><h3>one<br>more<br>dice</h3></div>
             <div class="box" id="b8"><h1>8</h1></div>
             <div class="box" id="b9"><h1>9</h1></div>
-            <div class="box" id="b10"><h1>10</h1></div>
+            <div class="box" id="b10"><h3>move<br>forward<br>6<br>slots</h3></div>
             <div class="blank"></div>
             <div class="blank"></div>
             <div class="blank"></div>
@@ -38,15 +38,15 @@
             <div class="blank"></div>
             <div class="box" id="b11"><h1>11</h1></div>
             <div class="box" id="b25"><h1>25</h1></div>
-            <div class="box" id="b26"><h1>26</h1></div>
+            <div class="box" id="b26"><h3>move<br>forward<br>1<br>slot</h3></div>
             <div class="box" id="b27"><h1>27</h1></div>
-            <div class="box" id="b28"><h1>28</h1></div>
-            <div class="box" id="b29"><h1>29</h1></div>
+            <div class="box" id="b28"><h3>reverse<br>back<br>10<br>slots</h3></div>
+            <div class="box" id="b29"><h3>end<br>game</gr></h3></div>
             <div class="blank"></div>
             <div class="blank"></div>
             <div class="blank"></div>
             <div class="blank"></div>
-            <div class="box" id="b12">reverse<br>back<br>6<br>slots</div>
+            <div class="box" id="b12"><h3>reverse<br>back<br>3<br>slots</h3></div>
             <div class="box" id="b24"><h1>24</h1></div>
             <div class="blank"></div>
             <div class="blank"></div>
@@ -59,30 +59,36 @@
             <div class="box" id="b13"><h1>13</h1></div>
             <div class="box" id="b23"><h1>23</h1></div>
             <div class="box" id="b22"><h1>22</h1></div>
-            <div class="box" id="b21"><h1>21</h1></div>
+            <div class="box" id="b21"><h3>reverse<br>back<br>5<br>slots</h3></div>
             <div class="box" id="b20"><h1>20</h1></div>
             <div class="box" id="b19"><h1>19</h1></div>
             <div class="box" id="b18"><h1>18</h1></div>
-            <div class="box" id="b17"><h1>17</h1></div>
+            <div class="box" id="b17"><h3>back<br>to<br>1</h3></div>
             <div class="box" id="b16"><h1>16</h1></div>
             <div class="box" id="b15"><h1>15</h1></div>
             <div class="box" id="b14"><h1>14</h1></div>
 
-
+          
 
         </div>
 
         <div class="control" id="c1">
-            <h1>Player 1</h1>
-            <div class="dice1"></div>
+            <h1>Ironman</h1>
+            
+            <div class="dice1" id="dice1"></div>
         </div>
         <div class="control" id="c2">
-            <h1>Player 2</h1>
-            <div class="dice2"></div>
+            <h1>Captain</h1>
+           
+            <div class="dice2" id="dice2"></div>
         </div>
+        
+        <button class="btn1">RESTART</button>
 
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+    
+    
     <script src="./app.js"></script>
 </body>
 </html>
