@@ -28,16 +28,15 @@ reset.addEventListener("click", function(){
     location.reload();
 });
     
-// setTimeout to execute p1 meets p2 after 300 milliseconds stop
+// setTimeout to execute p1 and p2 meet each other and stop after 300 milliseconds
 function ironman1(){
     setTimeout(function(){	
-        if(i == j){  // p1 when hit the same index with p2 in the same time
+        if(i == j){  // when p1 stop at the same index with p2 in the same time
             pumpSound.play();
             alert("You're loser, Captain");
             j = 1;  // p2 goes back to #box1
             document.querySelector("#b"+j).appendChild(p2);
             // updated the index by #b-box position + j index, and append p2 latest position which been shown
-
         }
     },300);
 }
@@ -57,15 +56,16 @@ function captain2(){
 // function traps #box4,7,10,12,17,21,26,28 
 // becomes bigger when hit move command, becomes smaller when hit reverse command 
 function trap(){
-    if(i == 4){  //when p1 gets to #box4 
+    if(i == 4){  //when p1 gets into #box4 
         moveSound.play();
         dice2.style.pointerEvents = "none"; // dice2 does not react to pointer events
         p1.style.animation = "bigger .7s"; // p1 becomes bigger for 0.7second
         // move function setInterval and clearInterval
         // setInterval method executes a movement function with speed given
         let go = setInterval(function(){
-            i++; //index p1++ : this is move forward slot
-            document.querySelector("#b"+i).appendChild(p1); //update position of the movement p1
+            i++; //index p1++ : trigger out the move forward function
+            // update the latest position of p1 by adding the previous position(#b) and new index(i)
+            document.querySelector("#b"+i).appendChild(p1); 
         },speed); //speed =700
         setTimeout(function(){
             clearInterval(go);  //stop interval
@@ -271,6 +271,7 @@ function trap(){
     }
     // #box7 is one more chance to roll dice
     if(i == 7){   //when player1 reach #box7
+        winnerSound.play();
         c1.style.visibility = "visible";  //c1 is p1.controller visible again
         c2.style.visibility = "hidden"; // c2 keeps hidden
         dice1.style.pointerEvents = "auto"; //dice1 reacts to pointer events
@@ -298,7 +299,7 @@ function trap(){
 }
 
 // ready function will run after all html file loaded by browser
-let ready = function(callback){   //see if DOM is already available
+const ready = function(callback){   //see if DOM is already available
     if (document.readyState != "loading") {
          callback();  // callback if readyState not loading
         } else {document.addEventListener("DOMContentLoaded", callback);
@@ -317,11 +318,11 @@ ready(function(){
     // let x = document.getElementById("c2");
     // x.style.visibility = "hidden"
 
-    //create dice1 function
+    //create dice1(p1) function
     dice1.addEventListener("click", function(){
         let num = Math.ceil(Math.random()*6);  //random number of those six real dices
         let bgi = Math.ceil(Math.random()*2);  //randomly switching images
-        //make dice rolling image - using s1/s2 images
+        //background of dice rolling image - using s1/s2 images
         dice1.style.backgroundImage = "url(img/s"+bgi+".png)"; 
         //after 300 milliseconds change rolling dice image to the real dice
         setTimeout(function(){
@@ -516,5 +517,5 @@ let check = setInterval(function(){
         alert("Captain won!!!");
         clearInterval(check);
         location.reload();
-    }    
+    } 
 },1000);
