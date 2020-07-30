@@ -17,6 +17,11 @@ let b26 = document.getElementById("b26");
 let b28 = document.getElementById("b28");
 let speed = 700;
 let reset = document.querySelector(".btn1"); //restart button
+let winnerSound = document.getElementById("sound1");
+let pumpSound = document.getElementById("sound2");
+let moveSound = document.getElementById("sound3");
+let reverseSound = document.getElementById("sound4");
+let backOneSound = document.getElementById("sound5");
 
 // create reset button
 reset.addEventListener("click", function(){
@@ -27,6 +32,7 @@ reset.addEventListener("click", function(){
 function ironman1(){
     setTimeout(function(){	
         if(i == j){  // p1 when hit the same index with p2 in the same time
+            pumpSound.play();
             alert("You're loser, Captain");
             j = 1;  // p2 goes back to #box1
             document.querySelector("#b"+j).appendChild(p2);
@@ -39,6 +45,7 @@ function ironman1(){
 function captain2(){
     setTimeout(function(){
         if(i == j){
+            pumpSound.play();
             alert("You can't win, Ironman.");
             i = 1;  // p1 goes back to #box1
             document.querySelector("#b"+i).appendChild(p1);
@@ -51,6 +58,7 @@ function captain2(){
 // becomes bigger when hit move command, becomes smaller when hit reverse command 
 function trap(){
     if(i == 4){  //when p1 gets to #box4 
+        moveSound.play();
         dice2.style.pointerEvents = "none"; // dice2 does not react to pointer events
         p1.style.animation = "bigger .7s"; // p1 becomes bigger for 0.7second
         // move function setInterval and clearInterval
@@ -70,6 +78,7 @@ function trap(){
         },speed * 5);
     }
     if(j == 4){   // when p2 reach #slot4
+        moveSound.play();
         dice1.style.pointerEvents = "none"; // dice1 no working
         p2.style.animation = "bigger .7s"; // becomes bigger
         // setInterval method executes a movement function with speed given
@@ -88,6 +97,7 @@ function trap(){
         },speed * 5);
     }
     if(i == 10){
+        moveSound.play();
         dice2.style.pointerEvents = "none";
         p1.style.animation = "bigger .7s";
         let go = setInterval(function(){
@@ -104,6 +114,7 @@ function trap(){
         },speed * 7);
     }
     if(j == 10){
+        moveSound.play();
         dice1.style.pointerEvents = "none";
         p2.style.animation = "bigger .7s";
         let go = setInterval(function(){
@@ -121,6 +132,7 @@ function trap(){
     }
     //reverser backward trap function
     if(i == 12){  //when p12 gets to #box12
+        reverseSound.play();
         dice2.style.pointerEvents = "none";  // dice2 doest not react to pointer events
         p1.style.animation = "smaller .7s";  // p1 becomes smaller for 0.7 sec
         //define movement function by setting interval(function,speed)
@@ -139,6 +151,7 @@ function trap(){
         },speed * 4);  //speed 700*4
     }
     if(j == 12){
+        reverseSound.play();
         dice1.style.pointerEvents = "none";
         p2.style.animation = "smaller .7s";
         let go = setInterval(function(){
@@ -155,6 +168,7 @@ function trap(){
         },speed * 4);
     }
     if(i == 21){
+        reverseSound.play();
         dice2.style.pointerEvents = "none";
         p1.style.animation = "smaller .7s";
         let go = setInterval(function(){
@@ -171,6 +185,7 @@ function trap(){
         },speed * 6);
     }
     if(j == 21){
+        reverseSound.play();
         dice1.style.pointerEvents = "none";
         p2.style.animation = "smaller .7s";
         let go = setInterval(function(){
@@ -187,6 +202,7 @@ function trap(){
         },speed * 6);
     }
     if(i == 26){
+        moveSound.play();
         dice2.style.pointerEvents = "none";
         p1.style.animation = "bigger .7s";
         let go = setInterval(function(){
@@ -203,6 +219,7 @@ function trap(){
         },speed * 2);
     }
     if(j == 26){
+        moveSound.play();
         dice1.style.pointerEvents = "none";
         p2.style.animation = "bigger .7s";
         let go = setInterval(function(){
@@ -219,6 +236,7 @@ function trap(){
         },speed * 2);
     }
     if(i == 28){
+        reverseSound.play();
         dice2.style.pointerEvents = "none";
         p1.style.animation = "smaller .7s";
         let go = setInterval(function(){
@@ -235,6 +253,7 @@ function trap(){
         },speed * 11);
     }
     if(j == 28){
+        reverseSound.play();
         dice1.style.pointerEvents = "none";
         p2.style.animation = "bigger .7s";
         let go = setInterval(function(){
@@ -257,21 +276,25 @@ function trap(){
         dice1.style.pointerEvents = "auto"; //dice1 reacts to pointer events
     }
     if(j == 7){
+        winnerSound.play();
         c2.style.visibility = "visible";
         c1.style.visibility = "hidden";
         dice2.style.pointerEvents = "auto";
     }
     // #box17 has a trap which go back #box1
     if(i == 17){  // when p1 steps in #box17
+        backOneSound.play();
         alert("Captain sucks!");  //alert appear on screen
         i = 1;  // p1 back to #box1
         document.querySelector("#b"+i).appendChild(p1);  // update position on screen by appending()method
     }
     if(j == 17){
+        backOneSound.play();
         alert("Ironman sucks!");
         j = 1;
         document.querySelector("#b"+j).appendChild(p2);
     }
+    
 }
 
 // ready function will run after all html file loaded by browser
@@ -284,11 +307,6 @@ let ready = function(callback){   //see if DOM is already available
 }
 
 //DOM is loaded and ready for manipulation: player's movement runs with dice controller
-
-//calculate random number for dice, change the dice image to rolling,
-//then after 300 milliseconds change dice image to the certain number,
-//then according to the number move the player to the place
-//and then hide the dice and visible another dice
 ready(function(){ 
     //make two players turn as random pick (refresh or restart as well)
     //it's all depend on luck who's gonna start the game
@@ -498,5 +516,5 @@ let check = setInterval(function(){
         alert("Captain won!!!");
         clearInterval(check);
         location.reload();
-    }
+    }    
 },1000);

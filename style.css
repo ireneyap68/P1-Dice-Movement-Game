@@ -31,15 +31,16 @@
 
 }
 
+
 .control{
-    width:200px;
-    height:200px;
+    width:150px;
+    height:150px;
     border-radius: 50%;
     background: #fff;
 	position: absolute;
 	top:55%;
 	right: 25%;
-	transform: translateY(-50%);
+    transform: translateY(-50%);
 
 }
 #c1 h1{
