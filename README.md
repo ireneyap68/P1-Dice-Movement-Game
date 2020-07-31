@@ -94,46 +94,45 @@ I used a lot of - setTimeout(function, milliseconds) - to execute a function, af
 The setInterval() method, offered on the Window and Worker interfaces, repeatedly calls a function or executes a code snippet, with a fixed time delay between each call. I use setInterval and clearIntervel when running my movement function.
 * trap - function move forward: #box 4, 10 and 26
 ```javascript
-    if(i == 4){  //when p1 gets to #box4 
+    if(i == 4){  //when p1 gets into #box4 
+        moveSound.play();
         dice2.style.pointerEvents = "none"; // dice2 does not react to pointer events
         p1.style.animation = "bigger .7s"; // p1 becomes bigger for 0.7second
         // move function setInterval and clearInterval
         // setInterval method executes a movement function with speed given
+        let countP1 = 0;  //move count 
         let go = setInterval(function(){
-            i++; //index p1++ : this is move forward slot
-            document.querySelector("#b"+i).appendChild(p1); //update position of the movement p1
+            countP1++;
+            i++; //index p1++ : trigger out the move forward function
+            // update the latest position of p1 by adding the previous position(#b) and new index(i)
+            document.querySelector("#b"+i).appendChild(p1);
+            if (countP1==4){ 
+                clearInterval(go);  //stop interval
+                callback();
+            }
         },speed); //speed =700
-        setTimeout(function(){
-            clearInterval(go);  //stop interval
-        },speed * 4 + 100);
-        // after clearInterval , stop animation and dice2 turns
-        setTimeout(function(){
-            p1.style.animation = "none";  // animation does not react for p1
-            dice2.style.pointerEvents = "auto";  // dice2 reacts to pointer events
-            ironman1(); //check function whether they meet together
-        },speed * 5);
+        return  //function is stop
     }
 ```
 * trap - function reverse back: #box 12, 21 and 28
 ```javascript
     if(i == 12){  //when p12 gets to #box12
-            dice2.style.pointerEvents = "none";  // dice2 doest not react to pointer events
-            p1.style.animation = "smaller .7s";  // p1 becomes smaller for 0.7 sec
-            //define movement function by setting interval(function,speed)
-            let go = setInterval(function(){
-                i--;  // p1-- reverse movement
-                document.querySelector("#b"+i).appendChild(p1);  // update position p1 by using appenChild method
-            },speed);
-            //stop interval
-            setTimeout(function(){
-                clearInterval(go);
-            },speed*3 + 100);
-            setTimeout(function(){  //setTimeout while p2 turn
-                p1.style.animation = "none";  // p1 animation stop
-                dice2.style.pointerEvents = "auto";  //dice2 reacts on pointer events
-                ironman1();  //check function ironman()
-            },speed * 4);  //speed 700*4
-        }
+        reverseSound.play();
+        dice2.style.pointerEvents = "none";  // dice2 doest not react to pointer events
+        p1.style.animation = "smaller .7s";  // p1 becomes smaller for 0.7 sec
+        //define movement function by setting interval(function,speed)
+        let countP1 = 0; // move count p1
+        let go = setInterval(function(){
+            countP1++; 
+            i--;  // p1-- reverse movement
+            document.querySelector("#b"+i).appendChild(p1);  // update position p1 by using appenChild method
+            if(countP1 == 3){  
+                clearInterval(go);  //stop interval
+                callback();
+            }
+        },speed);
+        return
+    }
 ```
 
 * Create a function for #box7 which the player has one more chance to roll dice.
@@ -168,42 +167,92 @@ The setInterval() method, offered on the Window and Worker interfaces, repeatedl
     }
 ```
 
-* DICE Movement function create as below: 
-First, define who's the first player. Then, calculate random number for real dice(1-6) and rolling dice(s1/s2), after 300 milliseconds change rolling dice image to the real dice, then according to the number, move the player to the right place and then hide the dice and visible another dice.
+* Movement function for each player
+```javascript
+    // p1 and p2 movement function
+    function moveIronman(num){
+        let countP1 = 0;  // move count is 0
+        var move = setInterval(() => {  //set interval function for movement p1
+            i++; // index i++
+            countP1++; //move count++
+            document.querySelector("#b"+i).appendChild(p1); //update new position
+            if(countP1 == num){  
+                clearInterval(move) // stop interval
+                trap(()=>{  // trap function 
+                    ironman1();  // check ironman1 function
+                    setTimeout(()=>{  //set timeout after 100 milliseconds
+                        c1.style.visibility = "hidden";  // hide c1 dice roller
+                        c2.style.visibility = "visible";   // visible c2 dice roller
+                        dice1.style.pointerEvents = "none"  //dice1 pointer-event off
+                        dice2.style.pointerEvents = "auto"  // dice2 react the pointer event
+                    },100); 
+                }); 
+            }
+        }, speed);
+
+    };
+    function moveCaptain(num){
+    let countP2 = 0;
+        var move = setInterval(() => {
+            j++;
+            countP2++;
+            document.querySelector("#b"+j).appendChild(p2);
+            if(countP2 == num){
+                clearInterval(move)
+                trap(()=>{
+                    captain2();
+                    setTimeout(()=>{
+                        c2.style.visibility = "hidden";
+                        c1.style.visibility = "visible"; 
+                        dice1.style.pointerEvents = "auto"
+                        dice2.style.pointerEvents = "none"
+                    },100); 
+                }); 
+            }
+        }, speed);
+    };
+```
+
+* DICE function for each player
+
 ```javascript
     ready(function(){ 
-        //make two players turn as random pick (refresh or restart as well)
-        //it's all depend on luck who's gonna start the game
-        let x = Math.ceil(Math.random()*2);
-        document.querySelector("#c"+x).style.visibility = "hidden";
-        
-        //if wanna make p1 starts the game, c2 should be hidden in well beginning of movement
-        // let x = document.getElementById("c2");
-        // x.style.visibility = "hidden"
+    //make two players turn as random pick (refresh or restart as well)
+    //it's all depend on luck who's gonna start the game
+    let x = Math.ceil(Math.random()*2);
+    document.querySelector("#c"+x).style.visibility = "hidden";
+    
+    //if wanna make p1 starts the game, c2 should be hidden in well beginning of movement
+    // let x = document.getElementById("c2");
+    // x.style.visibility = "hidden"
 
-        //create dice1 function
-        dice1.addEventListener("click", function(){
-            let num = Math.ceil(Math.random()*6);  //random number of those six real dices
-            let bgi = Math.ceil(Math.random()*2);  //randomly switching images
-            //make dice rolling image - using s1/s2 images
-            dice1.style.backgroundImage = "url(img/s"+bgi+".png)"; 
-            //after 300 milliseconds change rolling dice image to the real dice
-            setTimeout(function(){
-                dice1.style.backgroundImage = "url(img/"+num+".png)";
-            }, 300);
-            dice1.style.pointerEvents = "none";  //dice1 does not react after that
+    //create dice1(p1) function
+    dice1.addEventListener("click", function(){
+        dice1.style.pointerEvents = "none";  //dice1 does not react after that
+        let num = Math.ceil(Math.random()*6);  //random number of those six real dices
+        let bgi = Math.ceil(Math.random()*2);  //randomly switching images
+        //background of dice rolling image - using s1/s2 images
+        dice1.style.backgroundImage = "url(img/s"+bgi+".png)"; 
+        //after 300 milliseconds change rolling dice image to the real dice
+        setTimeout(function(){
+            dice1.style.backgroundImage = "url(img/"+num+".png)";
             dice2.style.pointerEvents = "auto";  //dice2 turns, so dice2 react to pointer event
-            // make movement function according to dice num 1-6
-            if(num == 1){
-                setTimeout(function(){
-                    i++;  // p1 movement with index
-                    document.querySelector("#b"+i).appendChild(p1);  //update previous position+i then append p1
-                    c1.style.visibility = "hidden";  // c1 been hidden because  it's c2 turns
-                    c2.style.visibility = "visible";  // c2 appear
-                    trap();  //check trap function
-                    ironman1(); //check p1 function
-                },speed);  //move's speed
-                ;
-            }
+            // make movement function according to dice num 1-6     
+            moveIronman(num)
+        }, 300);
+ 
+    });
+    dice2.addEventListener("click", function(){
+        dice2.style.pointerEvents = "none";
+        let num = Math.ceil(Math.random()*6);
+        let bgi = Math.ceil(Math.random()*2);
+        dice2.style.backgroundImage = "url(img/s"+bgi+".png)";
+        setTimeout(function(){
+            dice2.style.backgroundImage = "url(img/"+num+".png)";
+            dice1.style.pointerEvents = "auto";
+            moveCaptain(num)
+        }, 300);   
+        
+    });
 ```
 ## Finally, my first game is on board! Please enjoy it!

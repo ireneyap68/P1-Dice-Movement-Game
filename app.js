@@ -23,6 +23,7 @@ let moveSound = document.getElementById("sound3");
 let reverseSound = document.getElementById("sound4");
 let backOneSound = document.getElementById("sound5");
 
+
 // create reset button
 reset.addEventListener("click", function(){
     location.reload();
@@ -55,80 +56,74 @@ function captain2(){
 
 // function traps #box4,7,10,12,17,21,26,28 
 // becomes bigger when hit move command, becomes smaller when hit reverse command 
-function trap(){
+function trap(callback){
     if(i == 4){  //when p1 gets into #box4 
         moveSound.play();
         dice2.style.pointerEvents = "none"; // dice2 does not react to pointer events
         p1.style.animation = "bigger .7s"; // p1 becomes bigger for 0.7second
         // move function setInterval and clearInterval
         // setInterval method executes a movement function with speed given
+        let countP1 = 0;  //move count 
         let go = setInterval(function(){
+            countP1++;
             i++; //index p1++ : trigger out the move forward function
             // update the latest position of p1 by adding the previous position(#b) and new index(i)
-            document.querySelector("#b"+i).appendChild(p1); 
+            document.querySelector("#b"+i).appendChild(p1);
+            if (countP1==4){ 
+                clearInterval(go);  //stop interval
+                callback();
+            }
         },speed); //speed =700
-        setTimeout(function(){
-            clearInterval(go);  //stop interval
-        },speed * 4 + 100);
-        // after clearInterval , stop animation and dice2 turns
-        setTimeout(function(){
-            p1.style.animation = "none";  // animation does not react for p1
-            dice2.style.pointerEvents = "auto";  // dice2 reacts to pointer events
-            ironman1(); //check function whether they meet together
-        },speed * 5);
+        return  //function is stop
     }
     if(j == 4){   // when p2 reach #slot4
         moveSound.play();
         dice1.style.pointerEvents = "none"; // dice1 no working
         p2.style.animation = "bigger .7s"; // becomes bigger
         // setInterval method executes a movement function with speed given
+        let countP2 = 0;
         let go = setInterval(function(){  
+            countP2++;
             j++;    // index p2++: moving forward
             document.querySelector("#b"+j).appendChild(p2);   //update position in map for p2
+            if(countP2 == 4){
+                clearInterval(go);   //stop interval
+                callback();
+            }
         },speed);
-        setTimeout(function(){
-            clearInterval(go);   //stop interval
-        },speed * 4 + 100);
-        // new setTimeout function create to point dice1 roller and check captain2()function
-        setTimeout(function(){
-            p2.style.animation = "none";  // p2 animation does not react for
-            dice1.style.pointerEvents = "auto";  // dice1 reacts to pointer events
-            captain2();
-        },speed * 5);
+        return
     }
     if(i == 10){
         moveSound.play();
         dice2.style.pointerEvents = "none";
         p1.style.animation = "bigger .7s";
+        let countP1 = 0;
         let go = setInterval(function(){
+            countP1++;
             i++;
             document.querySelector("#b"+i).appendChild(p1);
+            if(countP1 == 6){
+                clearInterval(go);  //stop interval
+                callback();
+            }
         },speed);
-        setTimeout(function(){
-            clearInterval(go);
-        },speed * 6 + 100);
-        setTimeout(function(){
-            p1.style.animation = "none";
-            dice2.style.pointerEvents = "auto";
-            ironman1();
-        },speed * 7);
+        return
     }
     if(j == 10){
         moveSound.play();
         dice1.style.pointerEvents = "none";
         p2.style.animation = "bigger .7s";
+        let countP2 = 0;
         let go = setInterval(function(){
+            countP2++;
             j++;
             document.querySelector("#b"+j).appendChild(p2);
+            if(countP2 == 6){
+                clearInterval(go);  //stop interval
+                callback();
+            }
         },speed);
-        setTimeout(function(){
-            clearInterval(go);
-        },speed * 6 + 100);
-        setTimeout(function(){
-            p2.style.animation = "none";
-            dice1.style.pointerEvents = "auto";
-            captain2();
-        },speed * 7);
+        return
     }
     //reverser backward trap function
     if(i == 12){  //when p12 gets to #box12
@@ -136,138 +131,129 @@ function trap(){
         dice2.style.pointerEvents = "none";  // dice2 doest not react to pointer events
         p1.style.animation = "smaller .7s";  // p1 becomes smaller for 0.7 sec
         //define movement function by setting interval(function,speed)
+        let countP1 = 0; // move count p1
         let go = setInterval(function(){
+            countP1++; 
             i--;  // p1-- reverse movement
             document.querySelector("#b"+i).appendChild(p1);  // update position p1 by using appenChild method
+            if(countP1 == 3){  
+                clearInterval(go);  //stop interval
+                callback();
+            }
         },speed);
-        //stop interval
-        setTimeout(function(){
-            clearInterval(go);
-        },speed*3 + 100);
-        setTimeout(function(){  //setTimeout while p2 turn
-            p1.style.animation = "none";  // p1 animation stop
-            dice2.style.pointerEvents = "auto";  //dice2 reacts on pointer events
-            ironman1();  //check function ironman()
-        },speed * 4);  //speed 700*4
+        return
     }
     if(j == 12){
         reverseSound.play();
         dice1.style.pointerEvents = "none";
         p2.style.animation = "smaller .7s";
+        let countP2 = 0;
         let go = setInterval(function(){
+            countP2++;
             j--;
             document.querySelector("#b"+j).appendChild(p2);
+            if(countP2 == 3){
+                clearInterval(go);  //stop interval
+                callback();
+            }
         },speed);
-        setTimeout(function(){
-            clearInterval(go);
-        },speed*3 + 100);
-        setTimeout(function(){
-            p2.style.animation = "none";
-            dice1.style.pointerEvents = "auto";
-            captain2();
-        },speed * 4);
+        return
     }
     if(i == 21){
         reverseSound.play();
         dice2.style.pointerEvents = "none";
         p1.style.animation = "smaller .7s";
+        let countP1 = 0;
         let go = setInterval(function(){
+            countP1++;
             i--;
             document.querySelector("#b"+i).appendChild(p1);
+            if(countP1 == 5){
+                clearInterval(go);  //stop interval
+                callback();
+            }
         },speed);
-        setTimeout(function(){
-            clearInterval(go);
-        },speed * 5 + 100);
-        setTimeout(function(){
-            p1.style.animation = "none";
-            dice2.style.pointerEvents = "auto";
-            ironman1();
-        },speed * 6);
+        return
     }
     if(j == 21){
         reverseSound.play();
         dice1.style.pointerEvents = "none";
         p2.style.animation = "smaller .7s";
+        let countP2 = 0;
         let go = setInterval(function(){
+            countP2++;
             j--;
             document.querySelector("#b"+j).appendChild(p2);
+            if(countP2 == 5){
+                clearInterval(go);  //stop interval
+                callback();
+            }
         },speed);
-        setTimeout(function(){
-            clearInterval(go);
-        },speed * 5 + 100);
-        setTimeout(function(){
-            p2.style.animation = "none";
-            dice1.style.pointerEvents = "auto";
-            captain2();
-        },speed * 6);
+        return
     }
     if(i == 26){
         moveSound.play();
         dice2.style.pointerEvents = "none";
         p1.style.animation = "bigger .7s";
+        let countP1 = 0;
         let go = setInterval(function(){
+            countP1++;
             i++;
             document.querySelector("#b"+i).appendChild(p1);
+            if(countP1 == 1){
+                clearInterval(go);  //stop interval
+                callback();
+            }
         },speed);
-        setTimeout(function(){
-            clearInterval(go);
-        },speed + 100);
-        setTimeout(function(){
-            p1.style.animation = "none";
-            dice2.style.pointerEvents = "auto";
-            ironman1();
-        },speed * 2);
+        return
     }
     if(j == 26){
         moveSound.play();
         dice1.style.pointerEvents = "none";
         p2.style.animation = "bigger .7s";
+        let countP2 = 0;
         let go = setInterval(function(){
+            countP2++;
             j++;
             document.querySelector("#b"+j).appendChild(p2);
+            if(countP2 == 1){
+                clearInterval(go);  //stop interval
+                callback();
+            }
         },speed);
-        setTimeout(function(){
-            clearInterval(go);
-        },speed + 100);
-        setTimeout(function(){
-            p2.style.animation = "none";
-            dice1.style.pointerEvents = "auto";
-            captain2();
-        },speed * 2);
+        return
     }
     if(i == 28){
         reverseSound.play();
         dice2.style.pointerEvents = "none";
         p1.style.animation = "smaller .7s";
+        let countP1 = 0;
         let go = setInterval(function(){
+            countP1++;
             i--;
             document.querySelector("#b"+i).appendChild(p1);
+            if(countP1 == 10){
+                clearInterval(go);  //stop interval
+                callback();
+            }
         },speed);
-        setTimeout(function(){
-            clearInterval(go);
-        },speed * 10 + 100);
-        setTimeout(function(){
-            p1.style.animation = "none";
-            dice2.style.pointerEvents = "auto";
-            ironman1();
-        },speed * 11);
+        return
     }
     if(j == 28){
         reverseSound.play();
         dice1.style.pointerEvents = "none";
         p2.style.animation = "bigger .7s";
+        let countP2 = 0;
         let go = setInterval(function(){
+            countP2++;
             j--;
             document.querySelector("#b"+j).appendChild(p2);
+            if(countP2 == 10){
+                clearInterval(go);  //stop interval
+                callback();
+            }
         },speed);
-        setTimeout(function(){
-            clearInterval(go);
-        },speed * 10 + 100);
-        setTimeout(function(){
-            p2.style.animation = "none";
-            dice1.style.pointerEvents = "auto";
-            captain2();
-        },speed * 11);
+        return
     }
     // #box7 is one more chance to roll dice
     if(i == 7){   //when player1 reach #box7
@@ -275,12 +261,14 @@ function trap(){
         c1.style.visibility = "visible";  //c1 is p1.controller visible again
         c2.style.visibility = "hidden"; // c2 keeps hidden
         dice1.style.pointerEvents = "auto"; //dice1 reacts to pointer events
+        return
     }
     if(j == 7){
         winnerSound.play();
         c2.style.visibility = "visible";
         c1.style.visibility = "hidden";
         dice2.style.pointerEvents = "auto";
+        return
     }
     // #box17 has a trap which go back #box1
     if(i == 17){  // when p1 steps in #box17
@@ -288,13 +276,18 @@ function trap(){
         alert("Captain sucks!");  //alert appear on screen
         i = 1;  // p1 back to #box1
         document.querySelector("#b"+i).appendChild(p1);  // update position on screen by appending()method
+        callback()
+        return
     }
     if(j == 17){
         backOneSound.play();
         alert("Ironman sucks!");
         j = 1;
         document.querySelector("#b"+j).appendChild(p2);
+        callback()
+        return
     }
+    callback() // inside trap function
     
 }
 
@@ -307,6 +300,51 @@ const ready = function(callback){   //see if DOM is already available
     }
 }
 
+// p1 and p2 movement function
+function moveIronman(num){
+    let countP1 = 0;  // move count is 0
+    var move = setInterval(() => {  //set interval function for movement p1
+        i++; // index i++
+        countP1++; //move count++
+        document.querySelector("#b"+i).appendChild(p1); //update new position
+        if(countP1 == num){  
+            clearInterval(move) // stop interval
+            trap(()=>{  // trap function 
+                ironman1();  // check ironman1 function
+                setTimeout(()=>{  //set timeout after 100 milliseconds
+                    c1.style.visibility = "hidden";  // hide c1 dice roller
+                    c2.style.visibility = "visible";   // visible c2 dice roller
+                    dice1.style.pointerEvents = "none"  //dice1 pointer-event off
+                    dice2.style.pointerEvents = "auto"  // dice2 react the pointer event
+                },100); 
+            }); 
+        }
+    }, speed);
+
+};
+function moveCaptain(num){
+   let countP2 = 0;
+    var move = setInterval(() => {
+        j++;
+        countP2++;
+        document.querySelector("#b"+j).appendChild(p2);
+        if(countP2 == num){
+            clearInterval(move)
+            trap(()=>{
+                captain2();
+                setTimeout(()=>{
+                    c2.style.visibility = "hidden";
+                    c1.style.visibility = "visible"; 
+                    dice1.style.pointerEvents = "auto"
+                    dice2.style.pointerEvents = "none"
+                },100);
+                
+            });
+            
+        }
+    }, speed);
+
+};
 //DOM is loaded and ready for manipulation: player's movement runs with dice controller
 ready(function(){ 
     //make two players turn as random pick (refresh or restart as well)
@@ -320,6 +358,7 @@ ready(function(){
 
     //create dice1(p1) function
     dice1.addEventListener("click", function(){
+        dice1.style.pointerEvents = "none";  //dice1 does not react after that
         let num = Math.ceil(Math.random()*6);  //random number of those six real dices
         let bgi = Math.ceil(Math.random()*2);  //randomly switching images
         //background of dice rolling image - using s1/s2 images
@@ -327,182 +366,23 @@ ready(function(){
         //after 300 milliseconds change rolling dice image to the real dice
         setTimeout(function(){
             dice1.style.backgroundImage = "url(img/"+num+".png)";
+            dice2.style.pointerEvents = "auto";  //dice2 turns, so dice2 react to pointer event
+            // make movement function according to dice num 1-6     
+            moveIronman(num)
         }, 300);
-        dice1.style.pointerEvents = "none";  //dice1 does not react after that
-        dice2.style.pointerEvents = "auto";  //dice2 turns, so dice2 react to pointer event
-        // make movement function according to dice num 1-6
-        if(num == 1){
-            setTimeout(function(){
-                i++;  // p1 movement with index
-                document.querySelector("#b"+i).appendChild(p1);  //update previous position+i then append p1
-                c1.style.visibility = "hidden";  // c1 been hidden because  it's c2 turns
-                c2.style.visibility = "visible";  // c2 appear
-                trap();  //check trap function
-                ironman1(); //check p1 function
-            },speed);  //move's speed
-            ;
-        }
-        if(num == 2){
-            let move = setInterval(function(){
-                i++;
-                document.querySelector("#b"+i).appendChild(p1);
-            }, speed);
-            setTimeout(function(){
-                clearInterval(move);
-                c1.style.visibility = "hidden";
-                c2.style.visibility = "visible";
-                trap();
-                ironman1();
-            },speed*2 + 100);
-            ;
-        }
-        if(num == 3){
-            let move = setInterval(function(){
-                i++;
-                document.querySelector("#b"+i).appendChild(p1);
-            }, speed);
-            setTimeout(function(){
-                clearInterval(move);
-                c1.style.visibility = "hidden";
-                c2.style.visibility = "visible";
-                trap();
-                ironman1();
-            },speed*3 + 100);
-            ;
-        }
-        if(num == 4){
-            let move = setInterval(function(){
-                i++;
-                document.querySelector("#b"+i).appendChild(p1);
-            }, speed);
-            setTimeout(function(){
-                clearInterval(move);
-                c1.style.visibility = "hidden";
-                c2.style.visibility = "visible";
-                trap();
-                ironman1();
-            },speed * 4 + 100);
-            ;
-        }
-        if(num == 5){
-            let move = setInterval(function(){
-                i++;
-                document.querySelector("#b"+i).appendChild(p1);
-            }, speed);
-            setTimeout(function(){
-                clearInterval(move);
-                c1.style.visibility = "hidden";
-                c2.style.visibility = "visible";
-                trap();
-                ironman1();
-            },speed * 5 + 100);
-            ;
-        }
-        if(num == 6){
-            let move = setInterval(function(){
-                i++;
-                document.querySelector("#b"+i).appendChild(p1);
-            }, speed);
-            setTimeout(function(){
-                clearInterval(move);
-                c1.style.visibility = "hidden";
-                c2.style.visibility = "visible";
-                trap();
-                ironman1();
-            },speed * 6 + 100);
-            ;
-        }
+ 
     });
     dice2.addEventListener("click", function(){
+        dice2.style.pointerEvents = "none";
         let num = Math.ceil(Math.random()*6);
         let bgi = Math.ceil(Math.random()*2);
         dice2.style.backgroundImage = "url(img/s"+bgi+".png)";
         setTimeout(function(){
             dice2.style.backgroundImage = "url(img/"+num+".png)";
-        }, 300);
-        dice2.style.pointerEvents = "none";
-        dice1.style.pointerEvents = "auto";
-        if(num == 1){
-            setTimeout(function(){
-                j++;
-                document.querySelector("#b"+j).appendChild(p2);
-                c2.style.visibility = "hidden";
-                c1.style.visibility = "visible";
-                trap();
-                captain2();
-            },speed);
-            ;
-        }
-        if(num == 2){
-            let move = setInterval(function(){
-                j++;
-                document.querySelector("#b"+j).appendChild(p2);
-            }, speed);
-            setTimeout(function(){
-                clearInterval(move);
-                c2.style.visibility = "hidden";
-                c1.style.visibility = "visible";
-                trap();
-                captain2();
-            },speed*2 + 100);
-            ;
-        }
-        if(num == 3){
-            let move = setInterval(function(){
-                j++;
-                document.querySelector("#b"+j).appendChild(p2);
-            }, speed);
-            setTimeout(function(){
-                clearInterval(move);
-                c2.style.visibility = "hidden";
-                c1.style.visibility = "visible";
-                trap();
-                captain2();
-            },speed*3 + 100);
-            ;
-        }
-        if(num == 4){
-            let move = setInterval(function(){
-                j++;
-                document.querySelector("#b"+j).appendChild(p2);
-            }, speed);
-            setTimeout(function(){
-                clearInterval(move);
-                c2.style.visibility = "hidden";
-                c1.style.visibility = "visible";
-                trap();
-                captain2();
-            },speed * 4 + 100);
-            ;
-        }
-        if(num == 5){
-            let move = setInterval(function(){
-                j++;
-                document.querySelector("#b"+j).appendChild(p2);
-            }, speed);
-            setTimeout(function(){
-                clearInterval(move);
-                c2.style.visibility = "hidden";
-                c1.style.visibility = "visible";
-                trap();
-                captain2();
-            },speed * 5 + 100);
-            ;
-        }
-        if(num == 6){
-            let move = setInterval(function(){
-                j++;
-                document.querySelector("#b"+j).appendChild(p2);
-            }, speed);
-            setTimeout(function(){
-                clearInterval(move);
-                c2.style.visibility = "hidden";
-                c1.style.visibility = "visible";
-                trap();
-                captain2();
-            },speed * 6 + 100);
-            ;
-        }
+            dice1.style.pointerEvents = "auto";
+            moveCaptain(num)
+        }, 300);   
+        
     });
 });
 
