@@ -32,12 +32,12 @@ reset.addEventListener("click", function(){
 // setTimeout to execute p1 and p2 meet each other and stop after 300 milliseconds
 function ironman1(){
     setTimeout(function(){	
-        if(i == j){  // when p1 stop at the same index with p2 in the same time
+        if(i == j){  // when p1 stop at the same box with p2 
             pumpSound.play();
             alert("You're loser, Captain");
             j = 1;  // p2 goes back to #box1
             document.querySelector("#b"+j).appendChild(p2);
-            // updated the index by #b-box position + j index, and append p2 latest position which been shown
+            // update the index by #b-box position + j index, and append p2 latest position which been shown
         }
     },300);
 }
@@ -54,8 +54,8 @@ function captain2(){
     },300);
 }
 
-// function traps #box4,7,10,12,17,21,26,28 
-// becomes bigger when hit move command, becomes smaller when hit reverse command 
+// traps function #box4,7,10,12,17,21,26,28 
+// when players hit certain grid box, they will trigger out different function.
 function trap(callback){
     if(i == 4){  //when p1 gets into #box4 
         moveSound.play();
@@ -69,14 +69,14 @@ function trap(callback){
             i++; //index p1++ : trigger out the move forward function
             // update the latest position of p1 by adding the previous position(#b) and new index(i)
             document.querySelector("#b"+i).appendChild(p1);
-            if (countP1==4){ 
+            if (countP1==4){    //when p1 moves 4 Steps to box 4
                 clearInterval(go);  //stop interval
-                callback();
+                callback(true);
             }
         },speed); //speed =700
         return  //function is stop
     }
-    if(j == 4){   // when p2 reach #slot4
+    if(j == 4){   // when p2 hit #box4
         moveSound.play();
         dice1.style.pointerEvents = "none"; // dice1 no working
         p2.style.animation = "bigger .7s"; // becomes bigger
@@ -88,7 +88,7 @@ function trap(callback){
             document.querySelector("#b"+j).appendChild(p2);   //update position in map for p2
             if(countP2 == 4){
                 clearInterval(go);   //stop interval
-                callback();
+                callback(true);
             }
         },speed);
         return
@@ -104,7 +104,7 @@ function trap(callback){
             document.querySelector("#b"+i).appendChild(p1);
             if(countP1 == 6){
                 clearInterval(go);  //stop interval
-                callback();
+                callback(true);
             }
         },speed);
         return
@@ -120,13 +120,13 @@ function trap(callback){
             document.querySelector("#b"+j).appendChild(p2);
             if(countP2 == 6){
                 clearInterval(go);  //stop interval
-                callback();
+                callback(true);
             }
         },speed);
         return
     }
-    //reverser backward trap function
-    if(i == 12){  //when p12 gets to #box12
+    //reverse backward trap function
+    if(i == 12){  //when p1 gets to #box12
         reverseSound.play();
         dice2.style.pointerEvents = "none";  // dice2 doest not react to pointer events
         p1.style.animation = "smaller .7s";  // p1 becomes smaller for 0.7 sec
@@ -136,9 +136,9 @@ function trap(callback){
             countP1++; 
             i--;  // p1-- reverse movement
             document.querySelector("#b"+i).appendChild(p1);  // update position p1 by using appenChild method
-            if(countP1 == 3){  
+            if(countP1 == 3){  //if p1 moves 3 steps to box12 so it will stop interval and start the callback
                 clearInterval(go);  //stop interval
-                callback();
+                callback(true);
             }
         },speed);
         return
@@ -154,7 +154,7 @@ function trap(callback){
             document.querySelector("#b"+j).appendChild(p2);
             if(countP2 == 3){
                 clearInterval(go);  //stop interval
-                callback();
+                callback(true);
             }
         },speed);
         return
@@ -170,7 +170,7 @@ function trap(callback){
             document.querySelector("#b"+i).appendChild(p1);
             if(countP1 == 5){
                 clearInterval(go);  //stop interval
-                callback();
+                callback(true);
             }
         },speed);
         return
@@ -186,7 +186,7 @@ function trap(callback){
             document.querySelector("#b"+j).appendChild(p2);
             if(countP2 == 5){
                 clearInterval(go);  //stop interval
-                callback();
+                callback(true);
             }
         },speed);
         return
@@ -202,7 +202,7 @@ function trap(callback){
             document.querySelector("#b"+i).appendChild(p1);
             if(countP1 == 1){
                 clearInterval(go);  //stop interval
-                callback();
+                callback(true);
             }
         },speed);
         return
@@ -218,7 +218,7 @@ function trap(callback){
             document.querySelector("#b"+j).appendChild(p2);
             if(countP2 == 1){
                 clearInterval(go);  //stop interval
-                callback();
+                callback(true);
             }
         },speed);
         return
@@ -234,7 +234,7 @@ function trap(callback){
             document.querySelector("#b"+i).appendChild(p1);
             if(countP1 == 10){
                 clearInterval(go);  //stop interval
-                callback();
+                callback(true);
             }
         },speed);
         return
@@ -250,7 +250,7 @@ function trap(callback){
             document.querySelector("#b"+j).appendChild(p2);
             if(countP2 == 10){
                 clearInterval(go);  //stop interval
-                callback();
+                callback(true);
             }
         },speed);
         return
@@ -276,7 +276,7 @@ function trap(callback){
         alert("Captain sucks!");  //alert appear on screen
         i = 1;  // p1 back to #box1
         document.querySelector("#b"+i).appendChild(p1);  // update position on screen by appending()method
-        callback()
+        callback(true)
         return
     }
     if(j == 17){
@@ -284,34 +284,26 @@ function trap(callback){
         alert("Ironman sucks!");
         j = 1;
         document.querySelector("#b"+j).appendChild(p2);
-        callback()
+        callback(true)
         return
     }
-    callback() // inside trap function
+    callback(true) // inside trap function
     
 }
 
-// ready function will run after all html file loaded by browser
-const ready = function(callback){   //see if DOM is already available
-    if (document.readyState != "loading") {
-         callback();  // callback if readyState not loading
-        } else {document.addEventListener("DOMContentLoaded", callback);
-        //else DOM is ready, so the handler can lookup DOM nodes, initialize the interface.
-    }
-}
 
 // p1 and p2 movement function
 function moveIronman(num){
     let countP1 = 0;  // move count is 0
-    var move = setInterval(() => {  //set interval function for movement p1
+    let move = setInterval(() => {  //set interval function for movement p1
         i++; // index i++
         countP1++; //move count++
         document.querySelector("#b"+i).appendChild(p1); //update new position
         if(countP1 == num){  
             clearInterval(move) // stop interval
             trap(()=>{  // trap function 
-                ironman1();  // check ironman1 function
-                setTimeout(()=>{  //set timeout after 100 milliseconds
+                ironman1();  // check ironman1 function which is the kickoff function
+                setTimeout(()=>{  //set timeout after 100 milliseconds to switch p2 turn
                     c1.style.visibility = "hidden";  // hide c1 dice roller
                     c2.style.visibility = "visible";   // visible c2 dice roller
                     dice1.style.pointerEvents = "none"  //dice1 pointer-event off
@@ -345,9 +337,19 @@ function moveCaptain(num){
     }, speed);
 
 };
+
+// ready function will run after all html file loaded by browser
+const ready = function(callback){   //see if DOM is already available
+    if (document.readyState != "loading") {
+         callback();  // callback if readyState not loading
+        } else {document.addEventListener("DOMContentLoaded", callback);
+        //else DOM is ready, so the handler can lookup DOM nodes, initialize the interface.
+    }
+}
+
 //DOM is loaded and ready for manipulation: player's movement runs with dice controller
-ready(function(){ 
-    //make two players turn as random pick (refresh or restart as well)
+ready(function(){ // control who gonna start the game/dice roller
+    //random pick (refresh or restart as well)
     //it's all depend on luck who's gonna start the game
     let x = Math.ceil(Math.random()*2);
     document.querySelector("#c"+x).style.visibility = "hidden";
@@ -359,7 +361,7 @@ ready(function(){
     //create dice1(p1) function
     dice1.addEventListener("click", function(){
         dice1.style.pointerEvents = "none";  //dice1 does not react after that
-        let num = Math.ceil(Math.random()*6);  //random number of those six real dices
+        let num = Math.ceil(Math.random()*6);  //random dice number 1-6
         let bgi = Math.ceil(Math.random()*2);  //randomly switching images
         //background of dice rolling image - using s1/s2 images
         dice1.style.backgroundImage = "url(img/s"+bgi+".png)"; 
